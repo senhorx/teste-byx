@@ -11,12 +11,6 @@ class QueueTypes(models.IntegerChoices):
 
 
 class Item(TimeStampedModel, Model):
-
-    """
-    ecommerce.Item
-    Stores a single item entry for our shop
-    """
-
     product_type = models.IntegerField(
         choices=QueueTypes.choices, default=QueueTypes.PRODUCTOR
     )
