@@ -4,6 +4,7 @@ import { Token } from "../variables";
 const baseURL = "http://127.0.0.1:8000/";
 
 const Form = (): JSX.Element => {
+  const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
 
   const uploadFile = (event: any) => {
@@ -20,12 +21,11 @@ const Form = (): JSX.Element => {
         },
       })
       .then((response) => {
-        console.log("Deu certo");
-        console.log(response);
+        setMessage("Produtos salvos com sucesso")
       })
       .catch((error) => {
         console.log(error);
-        setMessage(error.message)
+        setErrorMessage(error.message)
       });
   };
 
@@ -46,9 +46,14 @@ const Form = (): JSX.Element => {
           accept=".txt"
           onChange={uploadFile}
         />
-        {message && (
+        {errorMessage && (
         <>
-          <span className="text-red-600">Erro ao tentar enviar arquivo -{message}</span>
+          <span className="text-red-600">Erro ao tentar enviar arquivo -{errorMessage}</span>
+        </>
+      )}
+      {message && (
+        <>
+          <span className="text-green-600">{message}</span>
         </>
       )}
       </form>
